@@ -1,26 +1,47 @@
 # Diseñador Pro
 
-Proyecto de aplicación personal para crear y editar piezas informativas y promocionales de Banco Amazonas.
+Primera versión funcional de un editor personal de piezas de Banco Amazonas, por capas y con Gellix integrada.
 
-## Estado actual
+## Empezar sin instalar
 
-Fase de especificación. Todavía no existe una aplicación ejecutable ni una integración de generación de imágenes con IA.
+1. En GitHub, pulsa **Code → Download ZIP**.
+2. Extrae el ZIP en tu computadora.
+3. Abre **index.html** con Chrome, Edge o Firefox.
+4. Selecciona un texto del ejemplo y edítalo en el panel derecho. Arrastra los elementos para moverlos.
 
-## Funciones previstas
+No requiere cuenta, servidor, conexión a Internet ni instalación de dependencias. Si el navegador de tu organización bloquea archivos HTML locales, utiliza un servidor local o un alojamiento web estático autorizado.
 
-- Editor por capas para textos, imágenes, logotipos y formas.
-- Mover, redimensionar, reordenar, ocultar y bloquear elementos.
-- Biblioteca de marca con Gellix, colores y formatos por plataforma.
-- Importación de imágenes existentes como fondo o referencia; reconstrucción de elementos editables cuando corresponda.
-- Guardado de proyectos editables, copia descargable y exportación PNG/JPG.
-- Asistente para proponer diseños según producto, objetivo y plataforma, en una fase posterior.
+## Funciones disponibles
 
-## Lineamientos
+- Capas de texto Gellix, formas e imágenes PNG/JPG/WebP.
+- Posición, dimensiones, proporciones, color, peso, cursiva y alineación.
+- Duplicar, eliminar, reordenar, ocultar y bloquear capas.
+- Deshacer y rehacer.
+- Formatos de feed, historias, mailing, banner y banca digital.
+- Guardado automático en el navegador y descarga de proyecto JSON con imágenes incorporadas.
+- Abrir proyectos JSON y exportar PNG/JPG a resolución original, sin marcas de selección.
 
-Consultar [criterios de marca](docs/criterios-de-marca.md). Para los textos de los artes se utilizará exclusivamente Gellix. Conservar los logotipos originales.
+Usa **Guardar proyecto** para conservar una copia editable fuera del navegador. Borrar los datos del navegador elimina el guardado automático. La exportación PNG/JPG es una imagen plana; conserva también el JSON.
 
-Los documentos originales y los archivos de fuentes entregados por el usuario no están incluidos en este repositorio. Este guardado conserva la especificación, no una copia de todos los materiales adjuntos.
+## Alcance de esta versión
 
-## Próxima implementación
+Las imágenes importadas conservan sus elementos unidos: no se recuperan automáticamente las capas de un JPG o PNG. Los textos nuevos sí son editables. Puedes importar logos oficiales desde tu computadora; los logos originales no vienen incluidos. Todavía no hay generación con IA, eliminación de fondos ni publicación en redes. No se envían piezas ni fotografías a un servidor.
 
-Construir primero una aplicación web con editor por capas, biblioteca de marca, guardado local y exportación. Validar el flujo con una pieza real antes de integrar servicios de IA.
+Consultar [criterios de marca](docs/criterios-de-marca.md). Los archivos Gellix aportados por el usuario están incorporados en el HTML para permitir su uso sin conexión; mantener su uso dentro del alcance autorizado por su licencia. Los PDF originales no están publicados en este repositorio.
+
+## Desarrollo y validación
+
+El editor utiliza HTML, CSS y JavaScript sin dependencias de ejecución ni proceso de compilación. Para servirlo localmente:
+
+```sh
+cd /workspace/Dise-ador-Pro
+python3 -m http.server 8000 --bind 127.0.0.1
+```
+
+La prueba funcional `tests/smoke.py` requiere Python, Playwright y Chromium en `/usr/bin/chromium`:
+
+```sh
+python3 tests/smoke.py
+```
+
+Comprueba edición de texto, posiciones, capas, historial, proyectos, importación de imagen, proporciones, exportación PNG/JPG y persistencia. El script levanta su propio servidor temporal de prueba.
